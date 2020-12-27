@@ -8,15 +8,9 @@ function App() {
       <header className="App-header">
         <h1>Hello from React!!</h1>
         <h2>New Weather App coming!</h2>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        Learn React
         <Weather city="Brussels" />
+        <img src={logo} alt="logo" />
       </header>
     </div>
   );
