@@ -1,0 +1,18 @@
+.footer {
+  display: block;
+  text-align: center;
+  font-size: 15px;
+  font-family: "Courier New", Courier, monospace;
+  position: relative;
+  bottom: -40px;
+}
+
+.profile {
+  text-decoration: none;
+  color: #036ec5;
+}
+
+.code {
+  text-decoration: none;
+  color: #036ec5;
+}

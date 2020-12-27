@@ -1,0 +1,9 @@
+.cityline img {
+  display: block;
+  border: none;
+  width: 150px;
+  padding: 0;
+  margin: 0 auto;
+  position: relative;
+  top: 8px;
+}

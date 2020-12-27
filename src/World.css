@@ -1,0 +1,8 @@
+.world img {
+  display: block;
+  border: none;
+  margin: 0 auto;
+  width: 150px;
+  position: relative;
+  top: 10px;
+}
