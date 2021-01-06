@@ -1,12 +1,16 @@
 import React from "react";
-import DescriptionWeather from "./DescriptionWeather";
-import WeatherDetails from "./WeatherDetails";
 
 export default function CurrentWeather() {
   return (
     <div className="col">
-      <DescriptionWeather weatherNow="Sunny" />
-      <WeatherDetails humidity={60} wind={2} />
+      <h4 className="currentWeather" id="current-weather">
+        Sunny
+      </h4>
+      <p>
+        Humidity: <span id="humidity">60</span>%
+        <br />
+        Wind: <span id="wind"> 2 </span> km/h
+      </p>
       <img
         src="https://ssl.gstatic.com/onebox/weather/64/sunny.png"
         alt="sunny"

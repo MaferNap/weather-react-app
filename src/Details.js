@@ -1,16 +1,19 @@
 import React from "react";
-import CurrentCity from "./CurrentCity";
-import CurrentDate from "./CurrentDate";
-import LastUpdate from "./LastUpdate";
 
 export default function Details() {
   return (
     <p>
-      <CurrentCity nameCurrentCity="Brussels" />
+      <span className="currentCity" id="current-city">
+        <strong>Brussels</strong>
+      </span>
       <br />
-      <CurrentDate Day="Saturday" DateMonth="5" Time="17h00" />
+      <span className="currentDate" id="current-date">
+        Wednesday 6, 12h27
+      </span>
       <br />
-      <LastUpdate Day="Saturday" Time="16h58" />
+      <span className="lastUpdate" id="last-update-time">
+        Last update on Tuesday 5, at 23h45{" "}
+      </span>
     </p>
   );
 }
