@@ -7,7 +7,6 @@ export default function Weather(props) {
   const [weatherDetails, setWeatherDetails] = useState({ ready: false });
 
   function handleResponse(response) {
-    console.log(response.data);
     setWeatherDetails({
       ready: true,
       temperature: Math.round(response.data.main.temp),
