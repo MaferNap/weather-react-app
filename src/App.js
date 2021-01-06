@@ -11,7 +11,7 @@ function App() {
           <div className="card-body">
             <div className="row">
               <Cities />
-              <Weather city="Brussels" />
+              <Weather defaultCity="Paris" />
             </div>
           </div>
         </div>
