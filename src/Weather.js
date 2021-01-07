@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import FormattedLastUpdate from "./FormattedLastUpdate";
 
 import Forecast from "./Forecast";
 
@@ -15,6 +16,7 @@ export default function Weather(props) {
       wind: response.data.wind.speed,
       description: response.data.weather[0].description,
       icon: response.data.weather[0].icon,
+      update: new Date(response.data.dt * 1000),
     });
   }
 
@@ -71,9 +73,7 @@ export default function Weather(props) {
                     Wednesday 6, 12h27
                   </span>
                   <br />
-                  <span className="lastUpdate" id="last-update-time">
-                    Last update on Tuesday 5, at 23h45{" "}
-                  </span>
+                  <FormattedLastUpdate date={weatherDetails.update} />
                 </p>
               </div>
               <div className="col">
