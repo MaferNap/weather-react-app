@@ -11,6 +11,8 @@
     #87a7d9 50%,
     #def3f8 100%
   );
+  width: 75%;
+  margin: 0 auto;
 }
 .listCities {
   list-style-type: none;

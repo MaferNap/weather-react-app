@@ -1,6 +1,6 @@
 import "./App.css";
 import Weather from "./Weather";
-import Cities from "./Cities";
+
 import Footer from "./Footer";
 
 function App() {
@@ -10,7 +10,6 @@ function App() {
         <div className="card frame">
           <div className="card-body">
             <div className="row">
-              <Cities />
               <Weather defaultCity="Paris" />
             </div>
           </div>

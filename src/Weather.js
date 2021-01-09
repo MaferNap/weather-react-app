@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import FormattedLastUpdate from "./FormattedLastUpdate";
-import FormattedCurrentDate from "./FormattedCurrentDate";
+
+import WeatherInformation from "./WeatherInformation";
 
 import Forecast from "./Forecast";
 
 export default function Weather(props) {
   const [weatherDetails, setWeatherDetails] = useState({ ready: false });
+  const [city, setCity] = useState(props.defaultCity);
 
   function handleResponse(response) {
     setWeatherDetails({
@@ -16,16 +17,52 @@ export default function Weather(props) {
       humidity: response.data.main.humidity,
       wind: response.data.wind.speed,
       description: response.data.weather[0].description,
-      icon: response.data.weather[0].icon,
+      iconUrl: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
       update: new Date(response.data.dt * 1000),
       currentdate: new Date(),
     });
   }
 
+  function searchCity() {
+    const apiKey = "88d9871371b1db4131f1d79918fff4e1";
+
+    let units = "metric";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
+    axios.get(apiUrl).then(handleResponse);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    searchCity();
+  }
+
+  function handleCityName(event) {
+    setCity(event.target.value);
+  }
+
+  function getCurrentLocation(event) {
+    event.preventDefault();
+    navigator.geolocation.getCurrentPosition(findLocation);
+  }
+
+  function findLocation(position) {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    let apiKey = "88d9871371b1db4131f1d79918fff4e1";
+    let units = "metric";
+    let apiEndingPoint = "https://api.openweathermap.org/data/2.5/weather?";
+    let apiUrl = `${apiEndingPoint}&lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
+    axios.get(apiUrl).then(handleResponse);
+  }
+
   if (weatherDetails.ready) {
     return (
-      <div className="col-9">
-        <form className="weatherSearch" id="city-search">
+      <div className="col-12">
+        <form
+          onSubmit={handleSubmit}
+          className="weatherSearch"
+          id="city-search"
+        >
           <input
             className="cityBox"
             type="text"
@@ -33,6 +70,7 @@ export default function Weather(props) {
             autoComplete="off"
             autoFocus="on"
             id="city-quest"
+            onChange={handleCityName}
           />
 
           <input
@@ -42,7 +80,11 @@ export default function Weather(props) {
             id="city-search-button"
           />
 
-          <button className="locationButton" id="current-location-button">
+          <button
+            className="locationButton"
+            id="current-location-button"
+            onClick={getCurrentLocation}
+          >
             Current Location{" "}
             <span role="img" aria-label="pin">
               {" "}
@@ -50,62 +92,12 @@ export default function Weather(props) {
             </span>
           </button>
         </form>
-        <div className="card temperature-frame">
-          <div className="card-body">
-            <div className="row">
-              <div className="col temperature-displayed">
-                <span className="maintemperature" id="current-degrees">
-                  {weatherDetails.temperature}
-                </span>
-                <small>
-                  <a href="null" id="celsius-degrees" className="active">
-                    ºC{" "}
-                  </a>
-                  |
-                  <a href="null" id="fahrenheit-degrees">
-                    ºF{" "}
-                  </a>
-                </small>
-                <p>
-                  <span className="currentCity" id="current-city">
-                    <strong>{weatherDetails.city}</strong>
-                  </span>
-                  <br />
-
-                  <FormattedCurrentDate date={weatherDetails.currentdate} />
-                  <FormattedLastUpdate date={weatherDetails.update} />
-                </p>
-              </div>
-              <div className="col">
-                <h4 className="currentWeather" id="current-weather">
-                  {weatherDetails.description}
-                </h4>
-                <p>
-                  Humidity: <span id="humidity">{weatherDetails.humidity}</span>
-                  %
-                  <br />
-                  Wind: <span id="wind"> {weatherDetails.wind} </span> km/h
-                </p>
-                <img
-                  src="https://ssl.gstatic.com/onebox/weather/64/sunny.png"
-                  alt="sunny"
-                  id="icon"
-                  className="weatherIcon"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <WeatherInformation data={weatherDetails} />
         <Forecast />
       </div>
     );
   } else {
-    const apiKey = "88d9871371b1db4131f1d79918fff4e1";
-
-    let units = "metric";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${props.defaultCity}&appid=${apiKey}&units=${units}`;
-    axios.get(apiUrl).then(handleResponse);
-
+    searchCity();
     return "Loading...";
   }
 }
