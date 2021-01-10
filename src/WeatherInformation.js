@@ -1,6 +1,7 @@
 import React from "react";
 import FormattedLastUpdate from "./FormattedLastUpdate";
 import FormattedCurrentDate from "./FormattedCurrentDate";
+import WeatherTemperature from "./WeatherTemperature";
 
 export default function WeatherInformation(props) {
   return (
@@ -8,18 +9,7 @@ export default function WeatherInformation(props) {
       <div className="card-body">
         <div className="row">
           <div className="col temperature-displayed">
-            <span className="maintemperature" id="current-degrees">
-              {props.data.temperature}
-            </span>
-            <small>
-              <a href="null" id="celsius-degrees" className="active">
-                ºC{" "}
-              </a>
-              |
-              <a href="null" id="fahrenheit-degrees">
-                ºF{" "}
-              </a>
-            </small>
+            <WeatherTemperature celsius={props.data.temperature} />
             <p>
               <span className="currentCity" id="current-city">
                 <strong>{props.data.city}</strong>
